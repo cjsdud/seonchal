@@ -44,15 +44,44 @@ with t1:
     c4.metric("5년 추세", "변화 없음", help="기울기 +0.01%p/년, p=0.99 — 만성적 구조")
     g = D.dropna(subset=["품목대분류"]).groupby("품목대분류").agg(
         건수=("유찰","size"), 유찰률=("유찰","mean"), 중앙응찰=("응찰수","median")).reset_index()
-    g = g[g["건수"]>=25]
-    fig = px.scatter(g, x="중앙응찰", y="유찰률", size="건수", text="품목대분류", color="유찰률",
-                     color_continuous_scale="Reds",
-                     labels={"중앙응찰":"중앙 응찰자수 (공급 두께)","유찰률":"유찰률"},
-                     title="공급이 얇을수록 유찰이 잦다")
-    fig.update_traces(textposition="top center"); fig.update_yaxes(tickformat=".0%")
+    g = g[g["건수"]>=25].copy()
+    g["표시응찰"] = g["중앙응찰"].clip(lower=0.5)          # 로그축용 (0명 처리)
+    # 라벨은 양 극단만 — 겹침 방지
+    top = g.nlargest(4,"유찰률")["품목대분류"].tolist()
+    bot = g.nsmallest(3,"유찰률")["품목대분류"].tolist()
+    g["라벨"] = g["품목대분류"].where(g["품목대분류"].isin(top+bot), "")
+
+    fig = px.scatter(g, x="표시응찰", y="유찰률", size="건수", text="라벨",
+                     color="유찰률", color_continuous_scale="Reds",
+                     hover_name="품목대분류",
+                     hover_data={"건수":True,"중앙응찰":True,"표시응찰":False,
+                                 "라벨":False,"유찰률":":.1%"},
+                     log_x=True, size_max=45,
+                     labels={"표시응찰":"중앙 응찰자수 (공급 두께, 로그축)","유찰률":"유찰률"},
+                     title="공급이 얇을수록 유찰이 잦다 (상관 -0.729)")
+    fig.update_traces(textposition="top center", textfont_size=11,
+                      marker=dict(line=dict(width=1, color="white")))
+    fig.update_yaxes(tickformat=".0%")
+    fig.update_layout(height=480, coloraxis_showscale=False,
+                      margin=dict(t=60,b=40,l=40,r=20))
     st.plotly_chart(fig, use_container_width=True)
-    st.dataframe(g.sort_values("유찰률", ascending=False).style.format(
-        {"유찰률":"{:.1%}","중앙응찰":"{:.0f}"}), use_container_width=True, height=320)
+    st.caption("점 위에 마우스를 올리면 품목명이 표시됩니다. 가로축은 로그 스케일입니다.")
+
+    st.markdown("##### 품목별 유찰률 순위")
+    gb = g.sort_values("유찰률")
+    fig2 = px.bar(gb, x="유찰률", y="품목대분류", orientation="h",
+                  color="유찰률", color_continuous_scale="Reds",
+                  hover_data={"건수":True,"중앙응찰":True},
+                  labels={"품목대분류":"","유찰률":"유찰률"})
+    fig2.update_xaxes(tickformat=".0%")
+    fig2.update_layout(height=max(420, 22*len(gb)), coloraxis_showscale=False,
+                       margin=dict(t=10,b=40,l=10,r=20))
+    st.plotly_chart(fig2, use_container_width=True)
+
+    st.dataframe(g[["품목대분류","건수","유찰률","중앙응찰"]]
+                 .sort_values("유찰률", ascending=False)
+                 .style.format({"유찰률":"{:.1%}","중앙응찰":"{:.0f}"}),
+                 use_container_width=True, height=300, hide_index=True)
 
 with t2:
     st.subheader("공고를 내기 전에 진단합니다")
