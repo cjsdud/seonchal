@@ -250,8 +250,9 @@ with t3:
                           textfont=dict(family="IBM Plex Mono", size=13),
                           hovertemplate="<b>%{x}</b><br>유찰률 %{y:.1%}<extra></extra>"))
     f3.update_layout(template=PLOT, height=330,
-                     yaxis=dict(tickformat=".0%", range=[0, .72], title="유찰률"),
-                     xaxis=dict(title=""), bargap=.55)
+                     yaxis=dict(tickformat=".0%", range=[0, .72], title=""),
+                     xaxis=dict(title=""), bargap=.55,
+                     margin=dict(t=20, b=44, l=64, r=20))
     st.plotly_chart(f3, use_container_width=True)
 
     st.markdown('<div class="note"><b>왜 이런 일이 생기나요?</b><br>'
@@ -286,8 +287,8 @@ with t4:
                               marker=dict(size=8, color=SEAL, line=dict(width=2, color=PAPER)),
                               hovertemplate="%{x}년 · 유찰률 %{y:.1%}<extra></extra>"))
     f4.update_layout(template=PLOT, height=300,
-                     yaxis=dict(tickformat=".0%", rangemode="tozero", title="유찰률"),
-                     xaxis=dict(title=""))
+                     yaxis=dict(tickformat=".0%", rangemode="tozero", title=""),
+                     xaxis=dict(title=""), margin=dict(t=20, b=44, l=64, r=20))
     st.plotly_chart(f4, use_container_width=True)
 
     o = s.groupby("수요기관").agg(건수=("유찰", "size"), 유찰률=("유찰", "mean"))
