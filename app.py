@@ -7,144 +7,7 @@ st.set_page_config(page_title="선찰 先察", page_icon="◧", layout="wide",
 INK, PAPER, RULE = "#16202C", "#F5F6F4", "#C9CDD2"
 SEAL, STEEL, SLATE = "#B4232A", "#3E5C76", "#5A6672"
 
-st.markdown(f"""
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=Noto+Serif+KR:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root {{ --ink:{INK}; --paper:{PAPER}; --rule:{RULE};
-  --seal:{SEAL}; --steel:{STEEL}; --slate:{SLATE}; }}
-html, body, [class*="css"], .stApp {{
-  font-family:'IBM Plex Sans KR',sans-serif; background:var(--paper); color:var(--ink); }}
-.block-container {{ padding:2.2rem 3rem 4rem; max-width:1180px; }}
-#MainMenu, footer, header {{ visibility:hidden; }}
-
-.doc-head {{ border-top:2.5px solid var(--ink); padding-top:.9rem; margin-bottom:1.8rem; }}
-.doc-meta {{ display:flex; justify-content:space-between; align-items:baseline;
-  font-family:'IBM Plex Mono',monospace; font-size:.70rem; letter-spacing:.09em;
-  color:var(--slate); text-transform:uppercase; margin-bottom:1rem; }}
-.doc-title {{ font-family:'Noto Serif KR',serif; font-weight:700;
-  font-size:2.85rem; line-height:1.12; letter-spacing:-.02em; margin:0; }}
-.doc-title .han {{ color:var(--seal); font-weight:600; margin-left:.35rem; font-size:2.1rem; }}
-.doc-sub {{ font-size:1.02rem; color:var(--slate); margin-top:.7rem; font-weight:300;
-  line-height:1.65; max-width:62ch; }}
-.doc-sub b {{ color:var(--ink); font-weight:600; }}
-
-.flow {{ border:1px solid var(--rule); background:#fff; padding:1.3rem 1.5rem 1.1rem;
-  margin:1.6rem 0 1.2rem; }}
-.flow-h {{ font-size:.72rem; letter-spacing:.09em; color:var(--slate);
-  margin-bottom:1rem; font-family:'IBM Plex Mono',monospace; }}
-.flow-row {{ display:flex; align-items:stretch; flex-wrap:wrap; }}
-.fstep {{ flex:1; min-width:135px; padding:0 1rem; border-left:1px solid var(--rule); }}
-.fstep:first-child {{ border-left:none; padding-left:0; }}
-.fs-n {{ font-family:'IBM Plex Mono',monospace; font-size:.66rem; color:var(--seal);
-  letter-spacing:.1em; }}
-.fs-t {{ font-family:'Noto Serif KR',serif; font-size:1.05rem; font-weight:600;
-  margin:.25rem 0 .3rem; }}
-.fs-d {{ font-size:.79rem; color:var(--slate); line-height:1.55; font-weight:300; }}
-.fstep.fail .fs-t {{ color:var(--seal); }}
-.fstep.fail {{ background:rgba(180,35,42,.04); }}
-.flow-note {{ margin-top:1rem; padding-top:.85rem; border-top:1px dashed var(--rule);
-  font-size:.83rem; color:var(--slate); line-height:1.7; }}
-.flow-note b {{ color:var(--ink); }}
-
-.ledger {{ display:grid; grid-template-columns:repeat(4,1fr);
-  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
-  margin:1.6rem 0 1.4rem; }}
-.ledger div {{ padding:1.05rem 1.3rem; border-right:1px solid var(--rule); }}
-.ledger div:last-child {{ border-right:none; }}
-.lg-k {{ font-size:.72rem; letter-spacing:.05em; color:var(--slate); margin-bottom:.42rem; }}
-.lg-v {{ font-family:'IBM Plex Mono',monospace; font-size:1.85rem;
-  font-weight:600; line-height:1; letter-spacing:-.02em; }}
-.lg-v.sig {{ color:var(--seal); }}
-.lg-n {{ font-size:.70rem; color:var(--slate); margin-top:.38rem; font-weight:300;
-  line-height:1.45; }}
-
-.sec {{ margin:2.6rem 0 1rem; padding-bottom:.55rem; border-bottom:1px solid var(--rule); }}
-.sec-n {{ font-family:'IBM Plex Mono',monospace; font-size:.68rem;
-  letter-spacing:.14em; color:var(--seal); display:block; margin-bottom:.3rem; }}
-.sec-t {{ font-family:'Noto Serif KR',serif; font-size:1.32rem; font-weight:600; }}
-.sec-d {{ font-size:.87rem; color:var(--slate); margin-top:.4rem; font-weight:300;
-  line-height:1.6; }}
-
-.howto {{ background:#fff; border:1px solid var(--rule); border-left:3px solid var(--steel);
-  padding:.85rem 1.1rem; margin:.9rem 0 1.2rem; font-size:.83rem; line-height:1.75;
-  color:var(--slate); }}
-.howto b.h {{ color:var(--ink); display:block; font-size:.71rem; letter-spacing:.08em;
-  margin-bottom:.35rem; font-family:'IBM Plex Mono',monospace; }}
-
-.tally {{ display:flex; align-items:flex-end; gap:.62rem; height:34px; margin:.5rem 0; }}
-.tgrp {{ display:flex; gap:3px; }}
-.tick {{ width:2.5px; height:26px; background:var(--ink); display:block; }}
-.tick.x {{ transform:rotate(24deg); transform-origin:bottom; margin-left:-13px; }}
-.tally-none {{ font-family:'Noto Serif KR',serif; font-size:1.25rem; color:var(--seal);
-  border:1.5px solid var(--seal); padding:.22rem 1rem; letter-spacing:.35em; }}
-.tally-cap {{ font-family:'IBM Plex Mono',monospace; font-size:.74rem;
-  color:var(--slate); margin-left:.5rem; align-self:center; }}
-
-.verdict {{ border:1.5px solid var(--ink); padding:1.5rem 1.7rem; margin:.4rem 0 1rem;
-  background:#fff; }}
-.verdict.hi {{ border-color:var(--seal); }}
-.v-grade {{ font-family:'Noto Serif KR',serif; font-size:2rem; font-weight:700;
-  line-height:1; margin-bottom:.55rem; }}
-.v-grade.hi {{ color:var(--seal); }}
-.v-fact {{ font-size:.94rem; line-height:1.6; }}
-.v-fact b {{ font-family:'IBM Plex Mono',monospace; font-size:1.1rem; }}
-.v-act {{ margin-top:1rem; padding-top:.9rem; border-top:1px dashed var(--rule);
-  font-size:.87rem; line-height:1.85; color:var(--slate); }}
-.v-act b {{ color:var(--ink); display:block; margin-bottom:.35rem; font-size:.72rem;
-  letter-spacing:.08em; }}
-
-.grades {{ display:grid; grid-template-columns:repeat(3,1fr);
-  border:1px solid var(--rule); background:#fff; margin:1rem 0; }}
-.gr {{ padding:.9rem 1.1rem; border-right:1px solid var(--rule); }}
-.gr:last-child {{ border-right:none; }}
-.gr-n {{ font-family:'Noto Serif KR',serif; font-weight:700; font-size:1.05rem; }}
-.gr-n.hi {{ color:var(--seal); }}
-.gr-d {{ font-size:.76rem; color:var(--slate); margin-top:.35rem; line-height:1.5; }}
-.gr-v {{ font-family:'IBM Plex Mono',monospace; font-size:1.3rem; font-weight:600;
-  margin-top:.5rem; }}
-
-.stTabs [data-baseweb="tab-list"] {{ gap:0; border-bottom:1px solid var(--rule); }}
-.stTabs [data-baseweb="tab"] {{ height:auto; padding:.72rem 1.4rem; background:transparent;
-  border:none; border-bottom:2px solid transparent; font-size:.90rem;
-  font-weight:500; color:var(--slate); }}
-.stTabs [aria-selected="true"] {{ color:var(--ink); border-bottom-color:var(--seal); }}
-.stTabs [data-baseweb="tab-panel"] {{ padding-top:1.6rem; }}
-
-.stSelectbox label, .stRadio label, .stCheckbox label {{
-  font-size:.80rem !important; font-weight:500 !important; color:var(--slate) !important; }}
-.stButton>button {{ background:var(--ink); color:var(--paper); border:none; border-radius:0;
-  font-weight:600; font-size:.92rem; padding:.72rem 0; letter-spacing:.04em; }}
-.stButton>button:hover {{ background:var(--seal); color:#fff; }}
-.stButton>button:focus-visible {{ outline:2px solid var(--seal); outline-offset:2px; }}
-
-[data-testid="stExpander"] {{ border:1px solid var(--rule); background:#fff; }}
-[data-testid="stExpander"] summary {{ font-size:.85rem !important; font-weight:500 !important; }}
-.stDataFrame {{ border:1px solid var(--rule); }}
-.stDataFrame td, .stDataFrame th {{ font-size:.84rem !important; }}
-.note {{ font-size:.79rem; color:var(--slate); line-height:1.75; font-weight:300;
-  border-left:2px solid var(--rule); padding-left:.85rem; margin:1rem 0; }}
-.note b {{ color:var(--ink); font-weight:600; }}
-.foot {{ margin-top:3.5rem; padding-top:1.1rem; border-top:1px solid var(--rule);
-  font-family:'IBM Plex Mono',monospace; font-size:.70rem; color:var(--slate);
-  line-height:1.8; }}
-
-.gloss {{ display:grid; grid-template-columns:repeat(2,1fr); gap:0 2rem; }}
-.gi {{ padding:.7rem 0; border-bottom:1px solid var(--rule); }}
-.gi-t {{ font-weight:600; font-size:.88rem; }}
-.gi-d {{ font-size:.81rem; color:var(--slate); line-height:1.6; margin-top:.22rem;
-  font-weight:300; }}
-
-@media (max-width:820px) {{
-  .block-container {{ padding:1.4rem 1.1rem 3rem; }}
-  .doc-title {{ font-size:2rem; }}
-  .ledger, .grades, .gloss {{ grid-template-columns:repeat(2,1fr); }}
-  .ledger div, .gr {{ border-bottom:1px solid var(--rule); }}
-  .fstep {{ min-width:50%; border-left:none; padding:.6rem 0; }}
-}}
-@media (prefers-reduced-motion:reduce) {{ * {{ transition:none !important; }} }}
-</style>
-""", unsafe_allow_html=True)
+st.markdown(f"""<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=Noto+Serif+KR:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><style>:root {{ --ink:{INK}; --paper:{PAPER}; --rule:{RULE}; --seal:{SEAL}; --steel:{STEEL}; --slate:{SLATE}; }} html, body, [class*="css"], .stApp {{ font-family:'IBM Plex Sans KR',sans-serif; background:var(--paper); color:var(--ink); }} .block-container {{ padding:2.2rem 3rem 4rem; max-width:1180px; }} #MainMenu, footer, header {{ visibility:hidden; }} .doc-head {{ border-top:2.5px solid var(--ink); padding-top:.9rem; margin-bottom:1.8rem; }} .doc-meta {{ display:flex; justify-content:space-between; align-items:baseline; font-family:'IBM Plex Mono',monospace; font-size:.70rem; letter-spacing:.09em; color:var(--slate); text-transform:uppercase; margin-bottom:1rem; }} .doc-title {{ font-family:'Noto Serif KR',serif; font-weight:700; font-size:2.85rem; line-height:1.12; letter-spacing:-.02em; margin:0; }} .doc-title .han {{ color:var(--seal); font-weight:600; margin-left:.35rem; font-size:2.1rem; }} .doc-sub {{ font-size:1.02rem; color:var(--slate); margin-top:.7rem; font-weight:300; line-height:1.65; max-width:62ch; }} .doc-sub b {{ color:var(--ink); font-weight:600; }} .flow {{ border:1px solid var(--rule); background:#fff; padding:1.3rem 1.5rem 1.1rem; margin:1.6rem 0 1.2rem; }} .flow-h {{ font-size:.72rem; letter-spacing:.09em; color:var(--slate); margin-bottom:1rem; font-family:'IBM Plex Mono',monospace; }} .flow-row {{ display:flex; align-items:stretch; flex-wrap:wrap; }} .fstep {{ flex:1; min-width:135px; padding:0 1rem; border-left:1px solid var(--rule); }} .fstep:first-child {{ border-left:none; padding-left:0; }} .fs-n {{ font-family:'IBM Plex Mono',monospace; font-size:.66rem; color:var(--seal); letter-spacing:.1em; }} .fs-t {{ font-family:'Noto Serif KR',serif; font-size:1.05rem; font-weight:600; margin:.25rem 0 .3rem; }} .fs-d {{ font-size:.79rem; color:var(--slate); line-height:1.55; font-weight:300; }} .fstep.fail .fs-t {{ color:var(--seal); }} .fstep.fail {{ background:rgba(180,35,42,.04); }} .flow-note {{ margin-top:1rem; padding-top:.85rem; border-top:1px dashed var(--rule); font-size:.83rem; color:var(--slate); line-height:1.7; }} .flow-note b {{ color:var(--ink); }} .ledger {{ display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); margin:1.6rem 0 1.4rem; }} .ledger div {{ padding:1.05rem 1.3rem; border-right:1px solid var(--rule); }} .ledger div:last-child {{ border-right:none; }} .lg-k {{ font-size:.72rem; letter-spacing:.05em; color:var(--slate); margin-bottom:.42rem; }} .lg-v {{ font-family:'IBM Plex Mono',monospace; font-size:1.85rem; font-weight:600; line-height:1; letter-spacing:-.02em; }} .lg-v.sig {{ color:var(--seal); }} .lg-n {{ font-size:.70rem; color:var(--slate); margin-top:.38rem; font-weight:300; line-height:1.45; }} .sec {{ margin:2.6rem 0 1rem; padding-bottom:.55rem; border-bottom:1px solid var(--rule); }} .sec-n {{ font-family:'IBM Plex Mono',monospace; font-size:.68rem; letter-spacing:.14em; color:var(--seal); display:block; margin-bottom:.3rem; }} .sec-t {{ font-family:'Noto Serif KR',serif; font-size:1.32rem; font-weight:600; }} .sec-d {{ font-size:.87rem; color:var(--slate); margin-top:.4rem; font-weight:300; line-height:1.6; }} .howto {{ background:#fff; border:1px solid var(--rule); border-left:3px solid var(--steel); padding:.85rem 1.1rem; margin:.9rem 0 1.2rem; font-size:.83rem; line-height:1.75; color:var(--slate); }} .howto b.h {{ color:var(--ink); display:block; font-size:.71rem; letter-spacing:.08em; margin-bottom:.35rem; font-family:'IBM Plex Mono',monospace; }} .tally {{ display:flex; align-items:flex-end; gap:.62rem; height:34px; margin:.5rem 0; }} .tgrp {{ display:flex; gap:3px; }} .tick {{ width:2.5px; height:26px; background:var(--ink); display:block; }} .tick.x {{ transform:rotate(24deg); transform-origin:bottom; margin-left:-13px; }} .tally-none {{ font-family:'Noto Serif KR',serif; font-size:1.25rem; color:var(--seal); border:1.5px solid var(--seal); padding:.22rem 1rem; letter-spacing:.35em; }} .tally-cap {{ font-family:'IBM Plex Mono',monospace; font-size:.74rem; color:var(--slate); margin-left:.5rem; align-self:center; }} .verdict {{ border:1.5px solid var(--ink); padding:1.5rem 1.7rem; margin:.4rem 0 1rem; background:#fff; }} .verdict.hi {{ border-color:var(--seal); }} .v-grade {{ font-family:'Noto Serif KR',serif; font-size:2rem; font-weight:700; line-height:1; margin-bottom:.55rem; }} .v-grade.hi {{ color:var(--seal); }} .v-fact {{ font-size:.94rem; line-height:1.6; }} .v-fact b {{ font-family:'IBM Plex Mono',monospace; font-size:1.1rem; }} .v-act {{ margin-top:1rem; padding-top:.9rem; border-top:1px dashed var(--rule); font-size:.87rem; line-height:1.85; color:var(--slate); }} .v-act b {{ color:var(--ink); display:block; margin-bottom:.35rem; font-size:.72rem; letter-spacing:.08em; }} .grades {{ display:grid; grid-template-columns:repeat(3,1fr); border:1px solid var(--rule); background:#fff; margin:1rem 0; }} .gr {{ padding:.9rem 1.1rem; border-right:1px solid var(--rule); }} .gr:last-child {{ border-right:none; }} .gr-n {{ font-family:'Noto Serif KR',serif; font-weight:700; font-size:1.05rem; }} .gr-n.hi {{ color:var(--seal); }} .gr-d {{ font-size:.76rem; color:var(--slate); margin-top:.35rem; line-height:1.5; }} .gr-v {{ font-family:'IBM Plex Mono',monospace; font-size:1.3rem; font-weight:600; margin-top:.5rem; }} .stTabs [data-baseweb="tab-list"] {{ gap:0; border-bottom:1px solid var(--rule); }} .stTabs [data-baseweb="tab"] {{ height:auto; padding:.72rem 1.4rem; background:transparent; border:none; border-bottom:2px solid transparent; font-size:.90rem; font-weight:500; color:var(--slate); }} .stTabs [aria-selected="true"] {{ color:var(--ink); border-bottom-color:var(--seal); }} .stTabs [data-baseweb="tab-panel"] {{ padding-top:1.6rem; }} .stSelectbox label, .stRadio label, .stCheckbox label {{ font-size:.80rem !important; font-weight:500 !important; color:var(--slate) !important; }} .stButton>button {{ background:var(--ink); color:var(--paper); border:none; border-radius:0; font-weight:600; font-size:.92rem; padding:.72rem 0; letter-spacing:.04em; }} .stButton>button:hover {{ background:var(--seal); color:#fff; }} .stButton>button:focus-visible {{ outline:2px solid var(--seal); outline-offset:2px; }} [data-testid="stExpander"] {{ border:1px solid var(--rule); background:#fff; }} [data-testid="stExpander"] summary {{ font-size:.85rem !important; font-weight:500 !important; }} .stDataFrame {{ border:1px solid var(--rule); }} .stDataFrame td, .stDataFrame th {{ font-size:.84rem !important; }} .note {{ font-size:.79rem; color:var(--slate); line-height:1.75; font-weight:300; border-left:2px solid var(--rule); padding-left:.85rem; margin:1rem 0; }} .note b {{ color:var(--ink); font-weight:600; }} .foot {{ margin-top:3.5rem; padding-top:1.1rem; border-top:1px solid var(--rule); font-family:'IBM Plex Mono',monospace; font-size:.70rem; color:var(--slate); line-height:1.8; }} .gloss {{ display:grid; grid-template-columns:repeat(2,1fr); gap:0 2rem; }} .gi {{ padding:.7rem 0; border-bottom:1px solid var(--rule); }} .gi-t {{ font-weight:600; font-size:.88rem; }} .gi-d {{ font-size:.81rem; color:var(--slate); line-height:1.6; margin-top:.22rem; font-weight:300; }} @media (max-width:820px) {{ .block-container {{ padding:1.4rem 1.1rem 3rem; }} .doc-title {{ font-size:2rem; }} .ledger, .grades, .gloss {{ grid-template-columns:repeat(2,1fr); }} .ledger div, .gr {{ border-bottom:1px solid var(--rule); }} .fstep {{ min-width:50%; border-left:none; padding:.6rem 0; }} }} @media (prefers-reduced-motion:reduce) {{ * {{ transition:none !important; }} }}</style>""", unsafe_allow_html=True)
 
 PLOT = go.layout.Template(layout=dict(
     font=dict(family="IBM Plex Sans KR, sans-serif", size=12, color=INK),
@@ -216,50 +79,9 @@ def howto(title, body):
 
 
 # ══════════════════════════════════════════════════════════════
-st.markdown("""
-<div class="doc-head">
-  <div class="doc-meta"><span>국방 조달 무응찰 조기경보</span>
-  <span>2020 — 2025 · 12,641건 · ROC-AUC 0.806</span></div>
-  <h1 class="doc-title">선찰<span class="han">先察</span></h1>
-  <p class="doc-sub">군이 물건을 사려고 공고를 냅니다. 그런데 <b>4건 중 1건은 아무도 오지 않습니다.</b>
-  유찰의 92.7%는 경쟁이 부족했던 것이 아니라, 응찰한 업체가 한 곳도 없었던 경우입니다.
-  선찰은 공고를 게시하기 전에 그 위험을 알려드립니다.</p>
-</div>
+st.markdown("""<div class="doc-head"><div class="doc-meta"><span>국방 조달 무응찰 조기경보</span><span>2020 — 2025 · 12,641건 · ROC-AUC 0.806</span></div><h1 class="doc-title">선찰<span class="han">先察</span></h1><p class="doc-sub">군이 물건을 사려고 공고를 냅니다. 그런데 <b>4건 중 1건은 아무도 오지 않습니다.</b>유찰의 92.7%는 경쟁이 부족했던 것이 아니라, 응찰한 업체가 한 곳도 없었던 경우입니다.선찰은 공고를 게시하기 전에 그 위험을 알려드립니다.</p></div><div class="flow"><div class="flow-h">군은 이렇게 물건을 삽니다 — 그리고 어디서 문제가 생기는가</div><div class="flow-row"><div class="fstep"><div class="fs-n">01</div><div class="fs-t">공고</div><div class="fs-d">필요한 물품과 조건을 공개적으로 알립니다. 부품, 연료, 급식 재료, 공사까지 대상은 다양합니다.</div></div><div class="fstep"><div class="fs-n">02</div><div class="fs-t">응찰</div><div class="fs-d">팔고 싶은 업체가 가격을 써서 참여합니다. 참여한 업체 수가 곧 경쟁의 크기입니다.</div></div><div class="fstep"><div class="fs-n">03</div><div class="fs-t">개찰</div><div class="fs-d">정해진 날에 제출된 가격을 열어 확인합니다.</div></div><div class="fstep"><div class="fs-n">04</div><div class="fs-t">낙찰</div><div class="fs-d">조건에 맞는 업체를 선정해 계약합니다. 여기까지 오면 정상입니다.</div></div><div class="fstep fail"><div class="fs-n">04'</div><div class="fs-t">유찰</div><div class="fs-d">계약이 성립하지 않은 상태입니다. 공고를 처음부터 다시 내야 합니다.</div></div></div><div class="flow-note">유찰이 나면 <b>공고 게시부터 개찰까지 전 과정을 반복</b>합니다.물건값이 오르는 것이 아니라 시간이 사라지고, 그 끝에는 부대의 물자 수령 지연이 있습니다.<br>이 분석의 핵심 발견은 <b>유찰의 대부분이 2단계에서 아무도 오지 않아 발생한다</b>는 것입니다.경쟁이 약했던 것이 아니라, 팔겠다는 업체가 없었습니다.</div></div>""", unsafe_allow_html=True)
 
-<div class="flow">
-  <div class="flow-h">군은 이렇게 물건을 삽니다 — 그리고 어디서 문제가 생기는가</div>
-  <div class="flow-row">
-    <div class="fstep"><div class="fs-n">01</div><div class="fs-t">공고</div>
-      <div class="fs-d">필요한 물품과 조건을 공개적으로 알립니다. 부품, 연료, 급식 재료, 공사까지 대상은 다양합니다.</div></div>
-    <div class="fstep"><div class="fs-n">02</div><div class="fs-t">응찰</div>
-      <div class="fs-d">팔고 싶은 업체가 가격을 써서 참여합니다. 참여한 업체 수가 곧 경쟁의 크기입니다.</div></div>
-    <div class="fstep"><div class="fs-n">03</div><div class="fs-t">개찰</div>
-      <div class="fs-d">정해진 날에 제출된 가격을 열어 확인합니다.</div></div>
-    <div class="fstep"><div class="fs-n">04</div><div class="fs-t">낙찰</div>
-      <div class="fs-d">조건에 맞는 업체를 선정해 계약합니다. 여기까지 오면 정상입니다.</div></div>
-    <div class="fstep fail"><div class="fs-n">04'</div><div class="fs-t">유찰</div>
-      <div class="fs-d">계약이 성립하지 않은 상태입니다. 공고를 처음부터 다시 내야 합니다.</div></div>
-  </div>
-  <div class="flow-note">유찰이 나면 <b>공고 게시부터 개찰까지 전 과정을 반복</b>합니다.
-  물건값이 오르는 것이 아니라 시간이 사라지고, 그 끝에는 부대의 물자 수령 지연이 있습니다.<br>
-  이 분석의 핵심 발견은 <b>유찰의 대부분이 2단계에서 아무도 오지 않아 발생한다</b>는 것입니다.
-  경쟁이 약했던 것이 아니라, 팔겠다는 업체가 없었습니다.</div>
-</div>
-""", unsafe_allow_html=True)
-
-st.markdown(f"""
-<div class="ledger">
-  <div><div class="lg-k">전체 유찰률</div>
-       <div class="lg-v">{D['유찰'].mean()*100:.1f}<span style="font-size:1rem">%</span></div>
-       <div class="lg-n">공고 4건 중 약 1건이 계약에 이르지 못함</div></div>
-  <div><div class="lg-k">유찰 중 무응찰</div>
-       <div class="lg-v sig">92.7<span style="font-size:1rem">%</span></div>
-       <div class="lg-n">유찰 건의 대부분은 응찰 업체가 0곳</div></div>
-  <div><div class="lg-k">공급 두께–유찰 상관</div><div class="lg-v">−0.729</div>
-       <div class="lg-n">응찰 업체가 많은 품목일수록 유찰이 적음<br>(−1에 가까울수록 강한 반비례)</div></div>
-  <div><div class="lg-k">6년간 추세</div><div class="lg-v">없음</div>
-       <div class="lg-n">개선도 악화도 없는 만성적 구조<br>(연 +0.01%p, 통계적 의미 없음)</div></div>
-</div>""", unsafe_allow_html=True)
+st.markdown(f"""<div class="ledger"><div><div class="lg-k">전체 유찰률</div><div class="lg-v">{D['유찰'].mean()*100:.1f}<span style="font-size:1rem">%</span></div><div class="lg-n">공고 4건 중 약 1건이 계약에 이르지 못함</div></div><div><div class="lg-k">유찰 중 무응찰</div><div class="lg-v sig">92.7<span style="font-size:1rem">%</span></div><div class="lg-n">유찰 건의 대부분은 응찰 업체가 0곳</div></div><div><div class="lg-k">공급 두께–유찰 상관</div><div class="lg-v">−0.729</div><div class="lg-n">응찰 업체가 많은 품목일수록 유찰이 적음<br>(−1에 가까울수록 강한 반비례)</div></div><div><div class="lg-k">6년간 추세</div><div class="lg-v">없음</div><div class="lg-n">개선도 악화도 없는 만성적 구조<br>(연 +0.01%p, 통계적 의미 없음)</div></div></div>""", unsafe_allow_html=True)
 
 t1, t2, t3, t4 = st.tabs(["공급취약도", "공고 사전진단", "재공고 경보", "품목 상세"])
 
@@ -340,18 +162,7 @@ with t2:
     sec("03", "공고를 내기 전에 진단합니다",
         "발주 조건을 입력하면 응찰 업체가 없을 위험을 세 등급으로 알려드립니다.")
 
-    st.markdown(f"""
-    <div class="grades">
-      <div class="gr"><div class="gr-n hi">고위험</div>
-        <div class="gr-d">이 등급을 받은 과거 공고 중<br>실제로 응찰이 없었던 비율</div>
-        <div class="gr-v" style="color:{SEAL}">78.0%</div></div>
-      <div class="gr"><div class="gr-n">주의</div>
-        <div class="gr-d">이 등급을 받은 과거 공고 중<br>실제로 응찰이 없었던 비율</div>
-        <div class="gr-v">47.5%</div></div>
-      <div class="gr"><div class="gr-n">양호</div>
-        <div class="gr-d">이 등급을 받은 과거 공고 중<br>실제로 응찰이 없었던 비율</div>
-        <div class="gr-v">15.9%</div></div>
-    </div>""", unsafe_allow_html=True)
+    st.markdown(f"""    <div class="grades"><div class="gr"><div class="gr-n hi">고위험</div><div class="gr-d">이 등급을 받은 과거 공고 중<br>실제로 응찰이 없었던 비율</div><div class="gr-v" style="color:{SEAL}">78.0%</div></div><div class="gr"><div class="gr-n">주의</div><div class="gr-d">이 등급을 받은 과거 공고 중<br>실제로 응찰이 없었던 비율</div><div class="gr-v">47.5%</div></div><div class="gr"><div class="gr-n">양호</div><div class="gr-d">이 등급을 받은 과거 공고 중<br>실제로 응찰이 없었던 비율</div><div class="gr-v">15.9%</div></div></div>""", unsafe_allow_html=True)
 
     howto("등급은 어떻게 나오나요",
           "2020~2023년 공고와 그 결과를 학습한 예측 모델이 조건을 보고 위험도를 계산합니다. "
@@ -393,13 +204,7 @@ with t2:
                    "사업 일정에 여유 확보 · 수의계약 전환 절차 미리 준비",
             "주의": "제조물품제한이 꼭 필요한지 재검토 · 같은 품목의 과거 응찰 이력 확인",
             "양호": "통상 절차대로 진행하셔도 됩니다."}
-        st.markdown(f"""
-        <div class="verdict {hi}">
-          <div class="v-grade {hi}">{lv}</div>
-          <div class="v-fact">같은 등급을 받은 과거 공고 가운데 <b>{STAT[lv]}%</b>가
-          실제로 응찰 업체가 한 곳도 없었습니다.</div>
-          <div class="v-act"><b>권고 조치</b>{acts[lv]}</div>
-        </div>""", unsafe_allow_html=True)
+        st.markdown(f"""        <div class="verdict {hi}"><div class="v-grade {hi}">{lv}</div><div class="v-fact">같은 등급을 받은 과거 공고 가운데 <b>{STAT[lv]}%</b>가실제로 응찰 업체가 한 곳도 없었습니다.</div><div class="v-act"><b>권고 조치</b>{acts[lv]}</div></div>""", unsafe_allow_html=True)
 
         if mfr == "Y":
             st.markdown('<div class="note">제조물품제한을 해제하면 위험도가 낮아질 수 있습니다. '
@@ -472,20 +277,7 @@ with t4:
                       label_visibility="collapsed")
     s = D[D["품목대분류"] == p4]
 
-    st.markdown(f"""
-    <div class="ledger">
-      <div><div class="lg-k">공고 건수</div><div class="lg-v">{len(s):,}</div>
-           <div class="lg-n">2020–2025 누적</div></div>
-      <div><div class="lg-k">유찰률</div>
-           <div class="lg-v {'sig' if s['유찰'].mean() >= .3 else ''}">{s['유찰'].mean()*100:.1f}<span style="font-size:1rem">%</span></div>
-           <div class="lg-n">계약에 이르지 못한 비율</div></div>
-      <div><div class="lg-k">무응찰률</div>
-           <div class="lg-v">{s['무응찰'].mean()*100:.1f}<span style="font-size:1rem">%</span></div>
-           <div class="lg-n">응찰 업체가 0곳이었던 비율</div></div>
-      <div><div class="lg-k">평소 응찰 업체</div>
-           <div class="lg-v">{s['응찰수'].median():.0f}<span style="font-size:1rem">곳</span></div>
-           <div class="lg-n">중앙값 기준</div></div>
-    </div>""", unsafe_allow_html=True)
+    st.markdown(f"""    <div class="ledger"><div><div class="lg-k">공고 건수</div><div class="lg-v">{len(s):,}</div><div class="lg-n">2020–2025 누적</div></div><div><div class="lg-k">유찰률</div><div class="lg-v {'sig' if s['유찰'].mean() >= .3 else ''}">{s['유찰'].mean()*100:.1f}<span style="font-size:1rem">%</span></div><div class="lg-n">계약에 이르지 못한 비율</div></div><div><div class="lg-k">무응찰률</div><div class="lg-v">{s['무응찰'].mean()*100:.1f}<span style="font-size:1rem">%</span></div><div class="lg-n">응찰 업체가 0곳이었던 비율</div></div><div><div class="lg-k">평소 응찰 업체</div><div class="lg-v">{s['응찰수'].median():.0f}<span style="font-size:1rem">곳</span></div><div class="lg-n">중앙값 기준</div></div></div>""", unsafe_allow_html=True)
     st.markdown(tally(s["응찰수"].median()), unsafe_allow_html=True)
 
     yr = s.groupby("연도").agg(유찰률=("유찰", "mean")).reset_index()
@@ -508,25 +300,6 @@ with t4:
 
 # ── 용어 설명 ─────────────────────────────────────────────────
 with st.expander("용어 설명 — 처음 보시는 분을 위해"):
-    st.markdown("""
-    <div class="gloss">
-      <div class="gi"><div class="gi-t">유찰</div><div class="gi-d">입찰이 성립하지 않아 낙찰자를 정하지 못한 상태. 공고를 다시 내야 합니다.</div></div>
-      <div class="gi"><div class="gi-t">무응찰</div><div class="gi-d">공고를 냈는데 참여한 업체가 한 곳도 없는 경우. 유찰의 92.7%가 여기 해당합니다.</div></div>
-      <div class="gi"><div class="gi-t">단독응찰</div><div class="gi-d">한 곳만 참여한 경우. 경쟁이 성립하지 않아 재공고 대상이 될 수 있습니다.</div></div>
-      <div class="gi"><div class="gi-t">개찰</div><div class="gi-d">정해진 날에 제출된 입찰 가격을 열어 확인하는 절차입니다.</div></div>
-      <div class="gi"><div class="gi-t">재공고</div><div class="gi-d">유찰된 건을 다시 공고하는 것. 법에 정해진 정규 절차입니다.</div></div>
-      <div class="gi"><div class="gi-t">수의계약</div><div class="gi-d">경쟁 없이 특정 업체와 직접 맺는 계약. 재공고 후에도 참여자가 없으면 전환할 수 있습니다.</div></div>
-      <div class="gi"><div class="gi-t">수요기관</div><div class="gi-d">그 물품을 실제로 사용할 부대·기관입니다. 공고를 대행하는 기관과 다를 수 있습니다.</div></div>
-      <div class="gi"><div class="gi-t">제조물품제한</div><div class="gi-d">직접 제조하는 업체만 입찰하도록 한정하는 조건. 유통업체가 배제되어 참여 가능 업체가 줄어듭니다.</div></div>
-      <div class="gi"><div class="gi-t">공급 두께</div><div class="gi-d">그 품목을 팔 수 있는 업체가 시장에 얼마나 있는지. 이 분석에서는 평소 응찰 업체 수로 가늠했습니다.</div></div>
-      <div class="gi"><div class="gi-t">수요통합</div><div class="gi-d">여러 부대의 물량을 묶어 한 번에 발주하는 것. 규모가 커지면 업체가 참여할 이유가 생깁니다.</div></div>
-      <div class="gi"><div class="gi-t">상관계수</div><div class="gi-d">두 값이 함께 움직이는 정도. 0이면 무관, −1이면 완벽한 반비례입니다.</div></div>
-      <div class="gi"><div class="gi-t">ROC-AUC</div><div class="gi-d">예측 모델의 판별력. 0.5는 찍는 수준, 1.0은 완벽. 0.806은 10번 중 약 8번 올바르게 구별한다는 뜻입니다.</div></div>
-    </div>""", unsafe_allow_html=True)
+    st.markdown("""    <div class="gloss"><div class="gi"><div class="gi-t">유찰</div><div class="gi-d">입찰이 성립하지 않아 낙찰자를 정하지 못한 상태. 공고를 다시 내야 합니다.</div></div><div class="gi"><div class="gi-t">무응찰</div><div class="gi-d">공고를 냈는데 참여한 업체가 한 곳도 없는 경우. 유찰의 92.7%가 여기 해당합니다.</div></div><div class="gi"><div class="gi-t">단독응찰</div><div class="gi-d">한 곳만 참여한 경우. 경쟁이 성립하지 않아 재공고 대상이 될 수 있습니다.</div></div><div class="gi"><div class="gi-t">개찰</div><div class="gi-d">정해진 날에 제출된 입찰 가격을 열어 확인하는 절차입니다.</div></div><div class="gi"><div class="gi-t">재공고</div><div class="gi-d">유찰된 건을 다시 공고하는 것. 법에 정해진 정규 절차입니다.</div></div><div class="gi"><div class="gi-t">수의계약</div><div class="gi-d">경쟁 없이 특정 업체와 직접 맺는 계약. 재공고 후에도 참여자가 없으면 전환할 수 있습니다.</div></div><div class="gi"><div class="gi-t">수요기관</div><div class="gi-d">그 물품을 실제로 사용할 부대·기관입니다. 공고를 대행하는 기관과 다를 수 있습니다.</div></div><div class="gi"><div class="gi-t">제조물품제한</div><div class="gi-d">직접 제조하는 업체만 입찰하도록 한정하는 조건. 유통업체가 배제되어 참여 가능 업체가 줄어듭니다.</div></div><div class="gi"><div class="gi-t">공급 두께</div><div class="gi-d">그 품목을 팔 수 있는 업체가 시장에 얼마나 있는지. 이 분석에서는 평소 응찰 업체 수로 가늠했습니다.</div></div><div class="gi"><div class="gi-t">수요통합</div><div class="gi-d">여러 부대의 물량을 묶어 한 번에 발주하는 것. 규모가 커지면 업체가 참여할 이유가 생깁니다.</div></div><div class="gi"><div class="gi-t">상관계수</div><div class="gi-d">두 값이 함께 움직이는 정도. 0이면 무관, −1이면 완벽한 반비례입니다.</div></div><div class="gi"><div class="gi-t">ROC-AUC</div><div class="gi-d">예측 모델의 판별력. 0.5는 찍는 수준, 1.0은 완벽. 0.806은 10번 중 약 8번 올바르게 구별한다는 뜻입니다.</div></div></div>""", unsafe_allow_html=True)
 
-st.markdown("""
-<div class="foot">
-자료 · 조달정보개방포털 입찰공고 내역 (2020–2025, 국방부 하위기관 포함) · 방위사업청 공개데이터<br>
-모델 · LightGBM · 학습 2020–23 / 검증 2024 / 시험 2025 시간분할 · ROC-AUC 0.806 (단순규칙 0.664)<br>
-2026년 육군 빅데이터 분석 경연대회 출품작
-</div>""", unsafe_allow_html=True)
+st.markdown("""<div class="foot">자료 · 조달정보개방포털 입찰공고 내역 (2020–2025, 국방부 하위기관 포함) · 방위사업청 공개데이터<br>모델 · LightGBM · 학습 2020–23 / 검증 2024 / 시험 2025 시간분할 · ROC-AUC 0.806 (단순규칙 0.664)<br>2026년 육군 빅데이터 분석 경연대회 출품작</div>""", unsafe_allow_html=True)
